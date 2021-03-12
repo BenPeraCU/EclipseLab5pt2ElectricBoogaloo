@@ -27,8 +27,8 @@ void main(void)
     //disable interrupts
     __disable_irq();
 
-//    config_button();
-//    config_nvic_button();
+    config_button();
+    config_nvic_button();
 
     //enable interrupts
     __enable_irq();
@@ -78,15 +78,17 @@ void main(void)
 }
 
 /* Port1 ISR */
-/*void PORT1_IRQHandler(void)
+void PORT1_IRQHandler(void)
 {
     volatile uint32_t j;
 
     //Check flag
 
     // Delay for switch debounce, can use __no_operation() instead if you want!
-    for(j = 0; j < 100000; j++)
+    for(j = 0; j < 100000; j++){}
+    if(~(P1 -> IN & ~BIT1))
+        state = 1;
 
     //end of interrupt, what needs to happen here?
-*     P1 -> IFG &= ~BIT1; //clear interrupt flag
-}*/
+     P1 -> IFG &= ~BIT1; //clear interrupt flag
+}
